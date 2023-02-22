@@ -5,7 +5,7 @@ AC_PREREQ([2.65])
 # ====================
 # Version informations
 # ====================
-AC_INIT([libppd], [2.0b3], [https://github.com/OpenPrinting/libppd/issues], [libppd], [https://github.com/OpenPrinting/libppd/])
+AC_INIT([libppd], [2.0b4], [https://github.com/OpenPrinting/libppd/issues], [libppd], [https://github.com/OpenPrinting/libppd/])
 libppd_version="AC_PACKAGE_VERSION"
 libppd_version_major="`echo AC_PACKAGE_VERSION | awk -F. '{print $1}'`"
 libppd_version_major="`echo AC_PACKAGE_VERSION | awk -F. '{printf("%d\n",$2);}'`"
@@ -123,6 +123,15 @@ AC_SUBST(CUPS_STATEDIR)
 # Check for libcupsfilters
 # ========================
 PKG_CHECK_MODULES([LIBCUPSFILTERS], [libcupsfilters])
+
+# ============================================================
+# Check for whether we want to install the testppdfile utility
+# ============================================================
+AC_ARG_ENABLE([testppdfile], [AS_HELP_STRING([--enable-testppdfile], [enable testppdfile utility, to test correctness and integrity of PPD files.])],
+        [enable_testppdfile="$enableval"],
+        [enable_testppdfile="no"])
+AM_CONDITIONAL([ENABLE_TESTPPDFILE],
+[test "x$enable_testppdfile" != "xno"])
 
 # =======================================================
 # Check for whether we want to install the ppdc utilities
@@ -507,6 +516,7 @@ Build configuration:
 	pdftops:         ${CUPS_PDFTOPS_RENDERER}
 	Poppler's pdftops: ${enable_pdftops}
 	pdftops-path:    ${with_pdftops_path}
+	testppdfile:     ${enable_testppdfile}
 	ppdc utilities:  ${enable_ppdc_utils}
 	genstrings:      ${enable_genstrings}
 	werror:          ${enable_werror}
