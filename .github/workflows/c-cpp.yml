@@ -35,7 +35,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: update build environment
-      run: sudo apt-get update --fix-missing -y
+      run: brew update --fix-missing -y
     - name: install dependencies
       run: brew install autogen
     - name: autogen
