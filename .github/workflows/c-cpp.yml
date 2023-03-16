@@ -17,6 +17,8 @@ jobs:
       run: sudo apt-get update --fix-missing -y
     - name: install dependencies
       run: sudo apt install -y autoconf build-essential libcups-dev libcupsfilters-dev autopoint automake libtool 
+    - name: autogen
+      run: ./autogen.sh
     - name: configure
       env:
         CC: /usr/bin/gcc
