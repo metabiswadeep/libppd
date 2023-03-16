@@ -34,6 +34,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: autogen
+      run: ./autogen.sh
     - name: configure
       run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
     - name: make
