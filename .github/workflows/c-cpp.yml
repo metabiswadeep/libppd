@@ -16,7 +16,7 @@ jobs:
     - name: update build environment
       run: sudo apt-get update --fix-missing -y
     - name: install dependencies
-      run: sudo apt install -y autoconf build-essential libcups2-dev libcupsfilters-dev autopoint automake libtool 
+      run: sudo apt install -y autoconf build-essential libcups2-dev libcupsfilters-dev autopoint automake libtool ghostscript mupdf-tools 
     - name: autogen
       run: ./autogen.sh
     - name: configure
