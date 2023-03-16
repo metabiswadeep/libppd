@@ -1,0 +1,40 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-linux:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: update build environment
+      run: sudo apt-get update --fix-missing -y
+    - name: install dependencies
+      run: sudo apt install -y autoconf build-essential libcups-dev libcupsfilters-dev autopoint automake libtool 
+    - name: configure
+      env:
+        CC: /usr/bin/gcc
+      run: ./configure --enable-debug --enable-maintainer
+    - name: make
+      run: make
+    - name: test
+      run: make test || cat ppd/test.log
+  
+  build-macos:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure
+      run: ./configure --enable-debug --enable-maintainer --enable-sanitizer
+    - name: make
+      run: make
+    - name: test
+      run: make test || cat ppd/test.log
